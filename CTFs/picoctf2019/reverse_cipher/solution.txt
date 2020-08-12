@@ -1,0 +1,60 @@
+The file descriptors "flag.txt" and "rev_this" get loaded into memory and stored on the stack in "stream" and "var_rev_this", respectively. Next, the flaf.txt's first 0x18 (aka 24) bytes of content is read into memory and stored in "ptr". Execution jumps to the beginning of the first loop. This loop loops through the first 8 characters of the contents of ptr, and put each character in var_rev_this. At this point, var_rev_this contains "picoCTF{".
+
+Execution jumps to loop 2. In this loop, iterator 2 is used, and initialized with the value 8. The loop loops until iterator2 reaches the value 0x17 (23). The loop again loops through the remaining charachters of the flag. Every iteration, iterator2 gets ANDed by 1. The result is stored in eax. Next, "test eax, eax" occurs. If the AND operation didn't set eax to 0, execution jumps to loc_126F. The character gets subtracted by 2, and the character is stored in var_rev_this. If the AND operation DID set eax to 0, execution continues to an operation which increases the charachter by 5, and again, the resulting charachter is stored in var_rev_this.
+
+To solve this challenge, it's simply a matter of running the program on the server, looking at the output of "rev_this" and reversing that output using the knowledge gained from analysing the loops.
+
+rev_this result: picoCTF{w1{1wq84>654f26}
+iteration 8:
+	character = w = 119
+	iterator2 AND 1 = 0
+	original_char + 5 = 119
+	original_char = 119 - 5 = 114 = r
+iteration 9:
+	char = 1 = 49
+	9 AND 1 != 0
+	orig_char = 49 + 2 = 51 = 3
+iteration 10:
+	char = { = 123
+	10 AND 1 = 0
+	orig_char = 123 - 5 = 118 = v
+iteration 11:
+	char = 1 = 49
+	11 AND 1 != 0
+	orig_char = 49 + 2 = 47 = 3
+iteration 12:
+	char = w = 119
+	orig_char = 119 - 5 = 114 = r
+iteration 13:
+	char = q = 113
+	orig_char = 113 + 2 = 115 = s
+iteration 14:
+	char = 8 = 56
+	orig_char = 56 - 5 = 51 = 3
+iteration 15:
+	char = 4 = 52
+	orig_char = 52 + 2 = 54 = 6
+iteration 16:
+	char = > = 62
+	orig_char = 62 - 5 = 57 = 9
+iteration 17:
+	char = 6 = 54
+	orig_char = 54 + 2 = 56 = 8
+iteration 18:
+	char = 5 = 53
+	orig_char = 53 - 5 = 48 = 0
+iteration 19:
+	char = 4 = 52
+	orig_char = 52 + 2 = 54 = 6
+iteration 20:
+	char = f = 102
+	orig_char = 102 - 5 = 97 = a
+iteration 21:
+	char = 2 = 50
+	orig_char = 50 + 2 = 52 = 4
+iteration 22:
+	char = 6 = 54
+	orig_char = 54 - 5 = 49 = 1
+
+
+solution = picoCTF{r3v3rs369806a41}
