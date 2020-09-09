@@ -24,7 +24,7 @@ void display_flag() {
 
 char key[KEY_LEN];
 void read_canary() {
-  FILE *f = fopen("/home/kali/ctf/CTFs/picoctf2019/CanaRy/canary.txt","r");
+  FILE *f = fopen("/home/kali/CTFs/CTFs/picoctf2019/CanaRy/canary.txt","r");
   if (f == NULL) {
     printf("[ERROR]: Trying to Read Canary\n");
     exit(0);
